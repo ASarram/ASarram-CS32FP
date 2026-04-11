@@ -1,0 +1,72 @@
+# Attempt to process audio input for FP
+import librosa
+import sys
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Starting with local audio
+def load_audio(filepath: str):
+    try:
+        y, sr = librosa.load(filepath, sr=None)
+        print(f"Loaded: {filepath} | Duration: {len(y)/sr:.2f}s | Sample rate: {sr}Hz")
+        return y, sr
+    except Exception as e:
+        print(f"Error loading file: {e}")
+        return None, None
+
+# Feature extraction
+def feature_extraction(y, sr):
+    try:
+        # BPM
+        tempo, beats = librosa.beat.beat_track(y=y, sr=sr)
+
+        # Energy (loudness)
+        energy = np.mean(librosa.feature.rms(y=y)) # rms = loudness over time; taking average of this
+
+        # Beat strength
+        onset_env = librosa.onset.onset_strength(y=y, sr=sr)
+        beat_strength = np.mean(onset_env)
+
+        # Brightness
+        centroid = np.mean(librosa.feature.spectral_centroid(y=y, sr=sr)) # measures where most frequencies lie in the song 
+
+        # Beat regularity
+        beat_times = librosa.frames_to_time(beats, sr=sr)
+        if len(beat_times)>1:
+            regularity = np.std(np.diff(beat_times))
+        else:
+            regularity = 0
+
+        features = {"bpm": float(tempo), "energy": float(energy), "beat_strength": float(beat_strength), "brightness": float(centroid), "regularity": float(regularity)}
+
+        return features
+
+    except Exception as e:
+        print(f"Error extracting features: {e}")
+        return None
+
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python main.py <audiofile>")
+        sys.exit(1)
+
+    # loading file
+    filepath = sys.argv[1]
+    y, sr = load_audio(filepath)
+
+    if y is None:
+        sys.exit(1)
+
+    #Extract features
+    features = feature_extraction(y, sr)
+
+    if features:
+        print("\nExtracted Features:")
+        for key, value in features.items():
+            print(f"{key}: {value:.4f}")
+
+    # Plot waveform
+    plt.plot(y)
+    plt.title("Waveform")
+    plt.savefig("waveform.png")
