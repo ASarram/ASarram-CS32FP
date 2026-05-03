@@ -50,7 +50,7 @@ Google search and online Python support websites were used as needed
 Generative AI (specifically Claude) was used in the following ways, which are explicitly flagged and explained via script commments: 
 * download_from_youtube() in main.py: AI assistance was used to write the yt-dlp command structure and --print after_move: filepath flag to capture output path
 * Confidence scoring in matching.py: idea of normalization of weights and implementation of exponential decay scoring was written with AI assistance
-* z-score capping in matching.py: idea of capping z-score to avoid having single outliers dominate results 
+* z-score capping in matching.py: idea of capping z-score to avoid having single outliers dominate results was written with AI assistance 
 
 
   
