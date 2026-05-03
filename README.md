@@ -1,6 +1,6 @@
 SONG/DANCE STYLE DETECTOR
 
-Analyzes an audio file and identifies the ballroom dance that it mathces best (cha cha, samba, rumba, paso doble, or jive - but can be tailored to user's preference) using audio feature extraction and a reference database created from training samples 
+Analyzes an audio file and identifies the ballroom dance that it matches best (cha cha, samba, rumba, paso doble, or jive - but can be tailored to user's preference) using audio feature extraction and a reference database created from training samples 
 
 
 
