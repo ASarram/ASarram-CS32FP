@@ -14,11 +14,11 @@ Analyzes an audio file and identifies the ballroom dance that it matches best (c
 
 
 --- Project files --- 
-* main.py -> entry point for detector, that handles YouTube download of input file, and calls matching
+* main.py -> entry point for detector, that handles YouTube download of input file, and calls matching and helpers
 * matching.py -> contains scoring and explanation logic
 * helpers.py -> contains helper functions (feature extraction)
 * build_database.py -> builds reference database from training audiofiles
-* collect_data.py -> helper script for database creation (handles downloads of training audio from YouTube)
+* data_collecter.py -> helper script for database creation (handles downloads of training audio from YouTube)
 
 
 
